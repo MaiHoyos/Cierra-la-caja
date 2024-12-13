@@ -263,3 +263,22 @@ button:disabled {
 .game-over-button {
     background-color: #e74c3c;
     color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-family: 'Arial Rounded MT Bold', 'Arial Rounded', 'Arial', sans-serif;
+}
+.game-over-button:hover {
+    background-color: #c0392b;
+}
+#piuImage {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    width: 150px; /* Reducido de 300px a 150px */
+    height: auto;
+    z-index: 1000;
+}
