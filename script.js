@@ -148,4 +148,88 @@ function findCombination(numbers, target, count, start = 0, current = []) {
     
     for (let i = start; i < numbers.length; i++) {
         current.push(numbers[i]);
-        if (findCombination(numbers, target,
+        if (findCombination(numbers, target, count - 1, i + 1, current)) {
+            return true;
+        }
+        current.pop();
+    }
+    return false;
+}
+
+function closeSelectedNumbers() {
+    numbers.forEach(number => {
+        if (number.classList.contains('selected')) {
+            number.classList.remove('selected');
+            number.classList.add('closed');
+        }
+    });
+    selectedSum = 0;
+    canRoll = true;
+    rollButton.disabled = false;
+
+    if (!checkPossibleSum(currentSum, numbers)) {
+        setTimeout(() => {
+            showGameOverModal();
+        }, 1500);
+    }
+}
+
+acceptBtn.onclick = function() {
+    const userSum = parseInt(sumInput.value);
+    const correctSum = parseInt(die1.alt.split(' ').pop()) + parseInt(die2.alt.split(' ').pop());
+    
+    if (userSum === correctSum) {
+        hideSumModal();
+        showCorrectGif();
+        currentSum = correctSum;
+        selectedSum = 0;
+        canRoll = false;
+        rollButton.disabled = true;
+
+        if (!checkPossibleSum(currentSum, numbers)) {
+            setTimeout(() => {
+                showGameOverModal();
+            }, 1500);
+        }
+    } else {
+        hideSumModal();
+        showIncorrectGif();
+    }
+}
+
+function rollDice() {
+    if (canRoll) {
+        rollButton.disabled = true;
+        resetButton.disabled = true;
+
+        animateDice(() => {
+            const roll1 = getRandomDieValue();
+            const roll2 = getRandomDieValue();
+            updateDieImage(die1, roll1);
+            updateDieImage(die2, roll2);
+            resetButton.disabled = false;
+            
+            showSumModal(roll1, roll2);
+        });
+    }
+}
+
+function resetGame() {
+    numbers.forEach(number => {
+        number.classList.remove('selected', 'closed');
+    });
+    updateDieImage(die1, 1);
+    updateDieImage(die2, 1);
+    currentSum = 0;
+    selectedSum = 0;
+    canRoll = true;
+    rollButton.disabled = false;
+    document.getElementById('gameOverModal').style.display = 'none';
+}
+
+rollButton.addEventListener('click', rollDice);
+resetButton.addEventListener('click', resetGame);
+document.getElementById('gameOverReset').addEventListener('click', function() {
+    document.getElementById('gameOverModal').style.display = 'none';
+    resetGame();
+});
