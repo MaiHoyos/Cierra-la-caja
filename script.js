@@ -13,8 +13,7 @@ const cancelBtn = document.getElementById('cancelSum');
 const sumInput = document.getElementById('sumInput');
 const diceSumText = document.getElementById('diceSum');
 
-let currentSum = 0;
-let selectedSum = 0;
+let currentSum = 0;let selectedSum = 0;
 let canRoll = true;
 
 playButton.addEventListener('click', () => {
