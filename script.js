@@ -49,7 +49,7 @@ function getRandomDieValue() {
 }
 
 function updateDieImage(dieElement, value) {
-    dieElement.src = `imagenes/dados/dado${value}.png`;
+    dieElement.src = `dado${value}.PNG`;
     dieElement.alt = `Dado mostrando ${value}`;
 }
 
@@ -233,3 +233,4 @@ document.getElementById('gameOverReset').addEventListener('click', function() {
     document.getElementById('gameOverModal').style.display = 'none';
     resetGame();
 });
+
